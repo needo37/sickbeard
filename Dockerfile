@@ -13,7 +13,7 @@ RUN apt-get install -qy python python-cheetah ca-certificates wget
 
 # Install SickBeard 3a70a6effe (2014-06-22)
 RUN mkdir /opt/sickbeard
-RUN wget  -O https://github.com/midgetspy/Sick-Beard/tarball/0e81fe9baf54d3e4084837eab5a16a47cc2a4f39 /tmp/midgetspy-SickBeard-0e81fe9baf.tar.gz
+RUN wget https://github.com/midgetspy/Sick-Beard/tarball/0e81fe9baf54d3e4084837eab5a16a47cc2a4f39 -O /tmp/midgetspy-SickBeard-0e81fe9baf.tar.gz
 RUN tar -C /opt/sickbeard -xvf /tmp/midgetspy-SickBeard-0e81fe9baf.tar.gz --strip-components 1
 RUN chown nobody:users /opt/sickbeard
 
