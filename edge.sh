@@ -4,6 +4,7 @@
 if [ -z "$EDGE" ]; then
   echo "Bleeding edge not requested"
 else
+  apt-get update
   apt-get install -qy git
   rm -rf /opt/sickbeard
   git clone https://github.com/midgetspy/Sick-Beard.git /opt/sickbeard
