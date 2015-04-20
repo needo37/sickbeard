@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.11
+FROM phusion/baseimage:0.9.16
 MAINTAINER needo <needo@superhero.org>
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -9,21 +9,23 @@ ENV HOME /root
 CMD ["/sbin/my_init"]
 
 # Fix a Debianism of the nobody's uid being 65534
-RUN usermod -u 99 nobody
-RUN usermod -g 100 nobody
+RUN usermod -u 99 nobody && \
+usermod -g 100 nobody && \
 
-RUN add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe multiverse"
-RUN add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates universe multiverse"
-RUN apt-get update -q
+add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe multiverse" && \
+add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates universe multiverse" && \
+apt-get update -q && \
 
 # Install Dependencies
-RUN apt-get install -qy python python-cheetah ca-certificates wget unrar
+apt-get install -qy python python-cheetah ca-certificates wget unrar unzip && \
 
 # Install SickBeard
-RUN mkdir /opt/sickbeard
-RUN wget https://github.com/midgetspy/Sick-Beard/archive/master.zip -O /tmp/sickbeard.tar.gz
-RUN tar -C /opt/sickbeard -xvf /tmp/sickbeard.tar.gz --strip-components 1
-RUN chown nobody:users /opt/sickbeard
+mkdir /opt/sickbeard && \
+cd /tmp && \
+wget https://github.com/midgetspy/Sick-Beard/archive/master.zip && \
+unzip master.zip && \
+mv Sick-Beard-master/* /opt/sickbeard/ && \
+chown nobody:users /opt/sickbeard
 
 EXPOSE 8081
 
